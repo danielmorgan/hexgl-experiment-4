@@ -1,30 +1,32 @@
 'use strict';
 
 import PIXI from 'pixi.js';
+import $ from 'jquery';
+import gesture from 'pixi-simple-gesture';
 
 export default class Map extends PIXI.Container {
     constructor() {
         super();
 
+        this.setup();
+        this.bindEvents();
+    }
+
+    bindEvents() {
+        gesture.panable(this);
+        this.on('panmove', e => this.pan(e));
+    }
+
+    setup() {
         let parchmentTexture = PIXI.Texture.fromImage('img/parchment.jpg');
-        let background = new PIXI.extras.TilingSprite(parchmentTexture, window.innerWidth, window.innerHeight);
-        background.alpha = 0.75;
-        this.addChild(background);
+        this.background = new PIXI.extras.TilingSprite(parchmentTexture, window.innerWidth, window.innerHeight);
+        this.background.alpha = 0.75;
 
-        let townTexture = PIXI.Texture.fromImage('img/town.png');
-        let town = new PIXI.Sprite(townTexture);
-        this.addChild(town);
-        town.scale.x = town.scale.y = 0.5;
-        town.anchor = new PIXI.Point(0.5, 0.5);
-        town.x = (window.innerWidth / 2) + 100;
-        town.y = window.innerHeight / 2;
+        this.addChild(this.background);
+    }
 
-        let castleTexture = PIXI.Texture.fromImage('img/castle.png');
-        let castle = new PIXI.Sprite(castleTexture);
-        this.addChild(castle);
-        castle.scale.x = castle.scale.y = 0.5;
-        castle.anchor = new PIXI.Point(0.5, 0.5);
-        castle.x = (window.innerWidth / 2) - 100;
-        castle.y = window.innerHeight / 2;
+    pan(e) {
+        this.background.tilePosition.x += e.deltaX;
+        this.background.tilePosition.y += e.deltaY;
     }
 }

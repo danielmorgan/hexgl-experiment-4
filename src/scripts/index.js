@@ -1,27 +1,16 @@
 'use strict';
 
-import PIXI from 'pixi.js';
-import GameLoop from './GameLoop';
+import Game from './Game';
 import Map from './Map';
-
-class Game {
-    constructor() {
-        this.stage = new PIXI.Container();
-    }
-
-    addToStage(displayObject) {
-        this.stage.addChild(displayObject);
-    }
-}
+import GameLoop from './GameLoop';
 
 // Set up the game singleton
-let game = new Game()
+let game = window.game = new Game();
 export default game;
 
-// Set up stuff in the game
+// Add stuff to the game
 let map = new Map();
 game.addToStage(map);
 
 // Start the game loop
-let gameLoop = new GameLoop();
-gameLoop.loop();
+new GameLoop();

@@ -13,12 +13,13 @@ export default class GameLoop {
             { transparent: true }
         );
 
-        this.$container = $('#game');
-        this.$container.append(this.renderer.view);
+        game.$container.append(this.renderer.view);
 
         this.stats = new Stats();
         this.stats.mode = 1;
         $('body').append(this.stats.dom);
+
+        this.loop();
     }
 
     loop() {
