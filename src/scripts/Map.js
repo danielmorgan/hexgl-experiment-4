@@ -3,21 +3,27 @@
 import PIXI from 'pixi.js';
 import $ from 'jquery';
 import gesture from 'pixi-simple-gesture';
+import World from './World';
 
 export default class Map extends PIXI.Container {
     constructor() {
         super();
 
-        this.setup();
+        this.addBackground();
+        this.addWorld();
         this.bindEvents();
     }
 
-    setup() {
+    addBackground() {
         let parchmentTexture = PIXI.Texture.fromImage('img/parchment.jpg');
         this.background = new PIXI.extras.TilingSprite(parchmentTexture, window.innerWidth, window.innerHeight);
         this.background.alpha = 1;
-
         this.addChild(this.background);
+    }
+    
+    addWorld() {
+        let world = new World();
+        this.addChild(world);
     }
 
     bindEvents() {
@@ -27,7 +33,7 @@ export default class Map extends PIXI.Container {
         this.on('panmove', e => this.pan(new PIXI.Point(e.deltaX, e.deltaY)));
     }
 
-    zoom(e, factor = 0.8) {
+    zoom(e, factor = 0.95) {
         // In or out?
         if (e.deltaY < 0) factor = 1 / factor;
 
