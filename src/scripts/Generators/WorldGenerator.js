@@ -1,6 +1,6 @@
 'use strict';
 
-import Hex from './Coordinates/Hex';
+import Hex from '../Coordinates/Hex';
 
 export default class WorldGenerator {
     static generate(w, h) {

@@ -13,10 +13,10 @@ export default class HexGraphic extends PIXI.Graphics {
 
         if (fill) {
             if (height <= 230) {
-                this.beginFill(this.color, 0.5);
+                this.beginFill(this.color, 0.8);
             }
         } else {
-            this.lineStyle(1, 0x000000, 0.1);
+            this.lineStyle(1, 0x000000, 0.5);
         }
         this.drawPolygon(this.points());
         this.endFill();
@@ -49,9 +49,9 @@ export default class HexGraphic extends PIXI.Graphics {
             return '0xd4be7d'; // coast
         } else if (value <= 180 && value > 100) {
             return '0x889d57'; // grass
-        } else if (value <= 100 && value > 40) {
+        } else if (value <= 100 && value > 30) {
             return '0x665441'; // mountains
-        } else if (value <= 40) {
+        } else if (value <= 30) {
             return '0xeaece9'; // snow caps
         }
     }

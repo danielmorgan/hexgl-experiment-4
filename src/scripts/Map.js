@@ -9,14 +9,14 @@ export default class Map extends PIXI.Container {
     constructor() {
         super();
 
+        this.addBackground();
         this.addWorld();
-        // this.addBackground();
         this.bindEvents();
     }
 
     addBackground() {
         let parchmentTexture = PIXI.Texture.fromImage('img/parchment.jpg');
-        this.background = new PIXI.extras.TilingSprite(parchmentTexture, window.innerWidth, window.innerHeight);
+        this.background = new PIXI.extras.TilingSprite(parchmentTexture, 2500, 2500);
         this.background.alpha = 1;
         this.addChild(this.background);
     }
