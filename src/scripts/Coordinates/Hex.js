@@ -1,6 +1,7 @@
 'use strict';
 
 import PIXI from 'pixi.js';
+import game from '../index.js';
 
 export default class Hex {
     constructor(q, r, s = null) {
@@ -17,7 +18,9 @@ export default class Hex {
         }
     }
 
-    toPixel(layout) {
+    toPixel() {
+        let layout = game.layout;
+
         let o = layout.orientation;
         let w = layout.size.width;
         let h = layout.size.height;

@@ -2,6 +2,7 @@
 
 import PIXI from 'pixi.js';
 import WorldGenerator from './WorldGenerator';
+import Hex from './Coordinates/Hex';
 import HexGraphic from './HexGraphic';
 
 export default class World extends PIXI.Container {
@@ -10,15 +11,19 @@ export default class World extends PIXI.Container {
 
         this.width = width;
         this.height = height;
-        this.worldData = WorldGenerator.generate(width, height);
+        this.data = WorldGenerator.generate(width, height);
 
         this.draw();
     }
 
     draw() {
-        let point = new PIXI.Point(50, 50);
-        let height = 220;
-        this.addChild(new HexGraphic(point, height));
+        for (let r of this.data) {
+            for (let q of r) {
+                let graphic = new HexGraphic(q.toPixel(), 200);
+                this.addChild(graphic);
+            }
+        }
+
         this.cacheAsBitmap = true;
     }
 }

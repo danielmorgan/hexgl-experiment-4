@@ -9,8 +9,8 @@ export default class Map extends PIXI.Container {
     constructor() {
         super();
 
-        this.addBackground();
         this.addWorld();
+        // this.addBackground();
         this.bindEvents();
     }
 
