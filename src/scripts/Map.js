@@ -9,21 +9,16 @@ export default class Map extends PIXI.Container {
     constructor() {
         super();
 
-        this.addBackground();
-        this.addWorld();
-        this.bindEvents();
-    }
-
-    addBackground() {
+        let world = new World(50, 50);
         let parchmentTexture = PIXI.Texture.fromImage('img/parchment.jpg');
-        this.background = new PIXI.extras.TilingSprite(parchmentTexture, 2500, 2500);
-        this.background.alpha = 1;
-        this.addChild(this.background);
-    }
-    
-    addWorld() {
-        let world = new World();
+        let background = new PIXI.extras.TilingSprite(parchmentTexture, world.width, world.height);
+        this.addChild(background);
         this.addChild(world);
+
+        // Default zoom and position
+        this.scale.x = this.scale.y = 0.25;
+
+        this.bindEvents();
     }
 
     bindEvents() {
@@ -39,7 +34,7 @@ export default class Map extends PIXI.Container {
 
         // Clamp between 25% and 250% zoom
         let newScale = this.scale.x * factor;
-        if (newScale > 2.5 || newScale < 0.25) return;
+        if (newScale > 1 || newScale < 0.2) return;
 
         // Zoom
         this.scale = new PIXI.Point(newScale, newScale);
@@ -52,7 +47,16 @@ export default class Map extends PIXI.Container {
     }
 
     pan(delta) {
-        this.x += delta.x;
-        this.y += delta.y;
+        let w = this.width - window.innerWidth;
+        let h = this.height - window.innerHeight;
+        let x = this.x + delta.x;
+        let y = this.y + delta.y;
+
+        console.log(-w, -h);
+
+        if (x < 0 && x >= -w) this.x = x;
+        if (y < 0 && y >= -h) this.y = y;
+
+        console.log(this.x, this.y);
     }
 }

@@ -19,8 +19,8 @@ export default class GradientMask {
     }
 
     static curve(value) {
-        let a = 2; // suddenness of falloff (higher = sharper)
-        let b = 3; // how close to the outer edge falloff occurs (higher = closer to edge)
+        let a = 1; // suddenness of falloff (higher = sharper)
+        let b = 4; // how close to the outer edge falloff occurs (higher = closer to edge)
 
         return Math.pow(value, a) / (Math.pow(value, a) + Math.pow(b - b * value, a));
     }

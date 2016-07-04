@@ -9,9 +9,10 @@ export default class Game {
     constructor() {
         this.$container = $('#game');
         this.stage = new PIXI.Container();
+        let radius = 50;
         this.layout = new Layout(
             ORIENTATION_POINTY,
-            { width: 10, height: 10 },
+            { width: radius, height: radius },
             new PIXI.Point(0, 0)
         );
     }
