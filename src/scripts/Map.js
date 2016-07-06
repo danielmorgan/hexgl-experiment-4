@@ -2,15 +2,15 @@
 
 import PIXI from 'pixi.js';
 import $ from 'jquery';
-import gesture from 'pixi-simple-gesture';
 import World from './World';
 import game from './index'
+import 'pepjs';
 
 export default class Map extends PIXI.Container {
     constructor() {
         super();
 
-        this.world = new World(50, 50);
+        this.world = new World(35, 25);
 
         this.horizWidth = this.world.getBounds().width - (game.layout.size.width * 2);
         this.vertHeight = this.world.getBounds().height - (game.layout.size.height * 2);
@@ -37,12 +37,35 @@ export default class Map extends PIXI.Container {
     bindEvents() {
         $(window).on('wheel', e => {
             e.preventDefault();
+
             this.zoom(e.originalEvent);
         });
 
-        gesture.panable(this);
-        this.on('panmove', e => {
-            this.pan(new PIXI.Point(e.deltaX, e.deltaY));
+        $(window).on('pointerdown', e => {
+            e.preventDefault();
+
+            this.panning = true;
+            this.pointerPreviousPosition = new PIXI.Point(e.clientX, e.clientY);
+        });
+
+        $(window).on('pointermove', e => {
+            e.preventDefault();
+
+            if (! this.panning) return;
+
+            let x = e.clientX - this.pointerPreviousPosition.x;
+            let y = e.clientY - this.pointerPreviousPosition.y;
+            let delta = new PIXI.Point(x, y);
+
+            this.pan(delta);
+
+            this.pointerPreviousPosition = new PIXI.Point(e.clientX, e.clientY);
+        });
+
+        $(window).on('pointerup', e => {
+            e.preventDefault();
+            
+            this.panning = false;
         });
     }
 
