@@ -40,12 +40,24 @@ export default class HexGraphic extends PIXI.Graphics {
     heightToTerrainColor(value) {
         if (value > 230) {
             return '0xa6acbe'; // water
-        } else if (value <= 230 && value > 180) {
-            return '0xd4be7d'; // coast
-        } else if (value <= 180 && value > 100) {
-            return '0x889d57'; // grass
-        } else if (value <= 100 && value > 30) {
-            return '0x665441'; // mountains
+        } else if (value <= 230 && value > 210) {
+            return '0xd1bc7b'; // coast low
+        } else if (value <= 210 && value > 190) {
+            return '0xdbc480'; // coast med
+        } else if (value <= 190 && value > 180) {
+            return '0xd4be7d'; // coast high
+        } else if (value <= 180 && value > 150) {
+            return '0x889d57'; // grass low
+        } else if (value <= 150 && value > 120) {
+            return '0x849753'; // grass med
+        } else if (value <= 120 && value > 100) {
+            return '0x7b8d4e'; // grass high
+        } else if (value <= 100 && value > 80) {
+            return '0x705c47'; // mountains low
+        } else if (value <= 80 && value > 50) {
+            return '0x665441'; // mountains med
+        } else if (value <= 50 && value > 30) {
+            return '0x5c4c3b'; // mountains high
         } else if (value <= 30) {
             return '0xeaece9'; // snow caps
         }

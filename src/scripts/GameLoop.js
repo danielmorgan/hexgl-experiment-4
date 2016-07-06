@@ -17,7 +17,7 @@ export default class GameLoop {
 
         this.stats = new Stats();
         this.stats.mode = 1;
-        // $('body').append(this.stats.dom);
+        $('body').append(this.stats.dom);
 
         this.loop();
     }
