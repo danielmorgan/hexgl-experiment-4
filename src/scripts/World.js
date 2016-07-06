@@ -8,11 +8,12 @@ import Maths from './Utils/Maths';
 import HexGraphic from './HexGraphic';
 
 export default class World extends PIXI.Container {
-    constructor(width = 100, height = 100) {
+    constructor(width = 100, height = 100, seed = 1) {
         super();
 
         this.width = width;
         this.height = height;
+        this.seed = seed;
         this.data = WorldGenerator.generate(width, height);
 
         this.draw();
@@ -24,7 +25,8 @@ export default class World extends PIXI.Container {
             frequency: 0.07,
             max: 255,
             min: 0,
-            octaves: 1
+            octaves: 1,
+            random: () => this.seed
         });
 
         for (let r = 0; r < this.data.length; r++) {
