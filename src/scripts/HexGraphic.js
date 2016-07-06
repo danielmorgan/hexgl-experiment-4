@@ -4,20 +4,15 @@ import PIXI from 'pixi.js';
 import game from './index';
 
 export default class HexGraphic extends PIXI.Graphics {
-    constructor(center = new PIXI.Point(0, 0), height = 0, fill = true) {
+    constructor(center = new PIXI.Point(0, 0), height = 0) {
         super();
 
         this.layout = game.layout;
         this.center = center;
         this.color = this.heightToTerrainColor(height);
 
-        if (fill) {
-            if (height <= 230) {
-                this.beginFill(this.color, 0.8);
-            }
-        } else {
-            this.lineStyle(1, 0x000000, 0.5);
-        }
+        this.beginFill(this.color, 0.8);
+        this.lineStyle(3, this.color, 1);
         this.drawPolygon(this.points());
         this.endFill();
     }
