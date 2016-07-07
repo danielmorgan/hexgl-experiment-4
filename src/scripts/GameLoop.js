@@ -19,6 +19,9 @@ export default class GameLoop {
         this.stats.mode = 1;
         $('body').append(this.stats.dom);
 
+        this.$debug = $('<div id="debug"></div>');
+        $('body').append(this.$debug);
+
         this.loop();
     }
 
@@ -26,6 +29,7 @@ export default class GameLoop {
         this.stats.begin();
         this.update();
         this.render();
+        this.$debug.html('X: <strong>' + window.debug.x.toFixed(0)  + '</strong>, Y: <strong>' + window.debug.y.toFixed(0) + '</strong>');
         this.stats.end();
         requestAnimationFrame(() => this.loop());
     }

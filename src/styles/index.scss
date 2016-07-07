@@ -19,3 +19,13 @@ html, body {
 .stats {
     display: none;
 }
+
+#debug  {
+	background: rgba(0, 0, 0, 0.8);
+	color: #fff;
+	position: fixed;
+	bottom: 0px;
+	right: 0px;
+	z-index: 10000;
+	padding: 7px 15px;
+}

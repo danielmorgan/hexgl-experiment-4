@@ -44,6 +44,8 @@ export default class Map extends PIXI.Container {
         this.x = this.bounds().left;
         this.y = this.bounds().top;
 
+        window.debug = this.position;
+
         this.bindEvents();
     }
 
@@ -95,11 +97,6 @@ export default class Map extends PIXI.Container {
         let newScale = this.scale.x * factor;
         let minScale = this.minScale();
 
-        // Offset so we zoom on mouse cursor
-        let dx = -((e.x - this.x) * (factor - 1));
-        let dy = -((e.y - this.y) * (factor - 1));
-        let delta = new PIXI.Point(dx, dy);
-
         // Clamp zoom in
         if (newScale > 1) {
             this.scale = new PIXI.Point(1, 1);
@@ -113,6 +110,11 @@ export default class Map extends PIXI.Container {
         // Zoom
         else {
             this.scale = new PIXI.Point(newScale, newScale);
+
+            // Offset so we zoom on mouse cursor
+            let dx = -((e.x - this.x) * (factor - 1));
+            let dy = -((e.y - this.y) * (factor - 1));
+            let delta = new PIXI.Point(dx, dy);
             this.pan(delta);
         }
     }
