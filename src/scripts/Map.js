@@ -29,10 +29,10 @@ export default class Map extends PIXI.Container {
         // Bounds
         this.bounds = () => {
             return {
-                left: -(game.layout.size.width * this.scale.x),
-                top: -(game.layout.size.height * this.scale.y),
-                right: window.innerWidth - (this.horizWidth * this.scale.x),
-                bottom: window.innerHeight - (this.vertHeight * this.scale.y)
+                left: Math.floor(-(game.layout.size.width * this.scale.x)),
+                top: Math.floor(-(game.layout.size.height * this.scale.y)),
+                right: Math.ceil(window.innerWidth - (this.horizWidth * this.scale.x)),
+                bottom: Math.ceil(window.innerHeight - (this.vertHeight * this.scale.y))
             };
         };
 
@@ -116,6 +116,8 @@ export default class Map extends PIXI.Container {
             let dy = -((e.y - this.y) * (factor - 1));
             let delta = new PIXI.Point(dx, dy);
             this.pan(delta);
+
+            this.constrainCamera();
         }
     }
 
@@ -123,26 +125,15 @@ export default class Map extends PIXI.Container {
         let targetX = this.x + delta.x;
         let targetY = this.y + delta.y;
 
-        let moved = false;
-
         // X-axis
         if (targetX <= this.bounds().left && targetX >= this.bounds().right) {
             this.x = targetX;
-            moved = true;
         }
 
         // Y-axis
         if (targetY <= this.bounds().top && targetY >= this.bounds().bottom) {
             this.y = targetY;
-            moved = true;
         }
-
-        if (! moved) {
-            this.constrainCamera();
-            return false
-        }
-
-        return true;
     }
 
     constrainCamera() {

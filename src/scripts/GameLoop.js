@@ -29,7 +29,7 @@ export default class GameLoop {
         this.stats.begin();
         this.update();
         this.render();
-        this.$debug.html('X: <strong>' + window.debug.x.toFixed(0)  + '</strong>, Y: <strong>' + window.debug.y.toFixed(0) + '</strong>');
+        this.$debug.html('<p>X: <strong>' + window.debug.x.toFixed(0)  + '</strong>, Y: <strong>' + window.debug.y.toFixed(0) + '</strong></p>');
         this.stats.end();
         requestAnimationFrame(() => this.loop());
     }

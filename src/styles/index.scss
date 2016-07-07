@@ -28,4 +28,7 @@ html, body {
 	right: 0px;
 	z-index: 10000;
 	padding: 7px 15px;
+
+	p { margin-bottom: 2px; }
+	p:last-child { margin-bottom: 0; }
 }
