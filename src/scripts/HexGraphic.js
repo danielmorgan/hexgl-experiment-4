@@ -2,6 +2,7 @@
 
 import PIXI from 'pixi.js';
 import game from './index';
+import Maths from './Utils/Maths';
 
 export default class HexGraphic extends PIXI.Graphics {
     constructor(center = new PIXI.Point(0, 0), height = 0) {
@@ -13,7 +14,7 @@ export default class HexGraphic extends PIXI.Graphics {
 
         this.beginFill(this.color, 0.8);
         this.lineStyle(3, this.color, 1);
-        this.drawPolygon(this.points());
+        this.drawPolygon(this.perturb(this.points()));
         this.endFill();
     }
 
@@ -22,10 +23,27 @@ export default class HexGraphic extends PIXI.Graphics {
 
         for (let i = 1; i <= 6; i++) {
             let point = this.corner(this.center, i);
-            points.push(point.x, point.y);
+            points.push(new PIXI.Point(point.x, point.y));
         }
 
         return points;
+    }
+
+    perturb(points) {
+        let perturbedPoints = [];
+
+        for (let i = 0; i < points.length; i++) {
+            let nextIndex = (i == points.length - 1) ? 0 : i + 1;
+            let midPoint = new PIXI.Point(
+                Maths.lerp(points[i].x, points[nextIndex].x, 0.5) + Maths.randomPosNeg() * 5,
+                Maths.lerp(points[i].y, points[nextIndex].y, 0.5) + Maths.randomPosNeg() * 5
+            );
+            perturbedPoints.push(points[i]);
+            perturbedPoints.push(midPoint);
+            perturbedPoints.push(points[nextIndex]);
+        }
+
+        return perturbedPoints;
     }
 
     corner(center, i) {

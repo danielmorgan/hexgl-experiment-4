@@ -10,7 +10,7 @@ export default class Map extends PIXI.Container {
     constructor() {
         super();
 
-        this.world = new World(35, 25);
+        this.world = new World(25, 10);
 
         this.horizWidth = this.world.getBounds().width - (game.layout.size.width * 2);
         this.vertHeight = this.world.getBounds().height - (game.layout.size.height * 2);
@@ -37,8 +37,8 @@ export default class Map extends PIXI.Container {
         };
 
         // Default zoom
-        this.scale.x = this.scale.y = this.minScale();
-        console.log(this.bounds());
+        // this.scale.x = this.scale.y = this.minScale();
+        this.scale.x = this.scale.y = 1;
 
         // Default position
         this.x = this.bounds().left;
