@@ -14,7 +14,7 @@ export default class HexGraphic extends PIXI.Graphics {
 
         this.beginFill(this.color, 0.8);
         this.lineStyle(3, this.color, 1);
-        this.drawPolygon(this.perturb(this.points()));
+        this.drawPolygon(this.points());
         this.endFill();
     }
 
