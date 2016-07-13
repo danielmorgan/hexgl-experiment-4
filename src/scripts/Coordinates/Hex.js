@@ -1,8 +1,9 @@
 'use strict';
 
 import PIXI from 'pixi.js';
+import Corner from './Corner';
+import HexGraphic from '../HexGraphic';
 import game from '../index.js';
-import { Directions } from './Directions';
 
 export default class Hex {
     constructor(q, r, s = null) {
@@ -18,9 +19,9 @@ export default class Hex {
             throw new Error('Invalid Hex coordinates', 'Coordinates must equal 0 when summed.');
         }
 
-        this.neighbours = this.getNeighbours(); // Hex
-        this.borders = []; // Edge
-        this.corners = []; // Corner
+        this.neighbors = [];
+        this.borders = [];
+        this.corners = [];
     }
 
     toPixel() {
@@ -39,19 +40,9 @@ export default class Hex {
         x += layout.origin.x;
 
         let y = (o.f2 * q + o.f3 * r) * h;
-        x += layout.origin.y
+        y += layout.origin.y;
 
         return new PIXI.Point(x, y);
-    }
-
-    getNeighbours() {
-        let neighbours = [];
-
-        for (let i = 0; i < 6; i++) {
-            neighbours.push(Hex.neighbour(this, i));
-        }
-
-        return neighbours;
     }
 
     static createFromOffset(q, r) {
@@ -111,4 +102,21 @@ export default class Hex {
 
         return results;
     }
+    
+    static corner(hex, direction) {
+        let hexGraphic = new HexGraphic();
+        let point = hexGraphic.corner(hex.toPixel(), direction);
+        
+        return new Corner(point);
+    }
 }
+
+export const Directions = [
+    new Hex(+1, -1,  0), new Hex(+1,  0, -1), new Hex(0, +1, -1),
+    new Hex(-1, +1,  0), new Hex(-1,  0, +1), new Hex(0, -1, +1)
+];
+
+export const Diagonals = [
+    new Hex(+2, -1, -1), new Hex(+1, -2, +1), new Hex(-1, -1, +2),
+    new Hex(-2, +1, +1), new Hex(-1, +2, -1), new Hex(+1, +1, -2)
+];

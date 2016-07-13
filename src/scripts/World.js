@@ -2,7 +2,7 @@
 
 import PIXI from 'pixi.js';
 import FastSimplexNoise from 'fast-simplex-noise';
-import WorldGenerator from './Generators/WorldGenerator';
+import WorldGenerator from './Generators/GraphGenerator';
 import GradientMask from './Generators/GradientMask'
 import Maths from './Utils/Maths';
 import HexGraphic from './HexGraphic';
@@ -15,6 +15,7 @@ export default class World extends PIXI.Container {
         this.height = height;
         this.seed = seed;
         this.data = WorldGenerator.generate(width, height);
+        console.log(this.data);
 
         this.draw();
     }
