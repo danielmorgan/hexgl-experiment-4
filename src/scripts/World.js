@@ -2,7 +2,7 @@
 
 import PIXI from 'pixi.js';
 import FastSimplexNoise from 'fast-simplex-noise';
-import WorldGenerator from './Generators/GraphGenerator';
+import GraphGenerator from './Generators/GraphGenerator';
 import GradientMask from './Generators/GradientMask'
 import Maths from './Utils/Maths';
 import HexGraphic from './HexGraphic';
@@ -14,14 +14,16 @@ export default class World extends PIXI.Container {
         this.width = width;
         this.height = height;
         this.seed = seed;
-        this.data = WorldGenerator.generate(width, height);
-        console.log(this.data);
+
+        let generator = new GraphGenerator(width, height);
+        this.graph = generator.generate();
+        console.log(this.graph);
 
         this.draw();
     }
 
     draw() {
-        let gradient = GradientMask.heightMap(this.data);
+        let gradient = GradientMask.heightMap(this.graph.grid);
         let noise = new FastSimplexNoise({
             frequency: 0.07,
             max: 255,
@@ -30,9 +32,9 @@ export default class World extends PIXI.Container {
             random: () => this.seed
         });
 
-        for (let r = 0; r < this.data.length; r++) {
-            for (let q = 0; q < this.data[r].length; q++) {
-                let point = this.data[r][q].toPixel();
+        for (let r = 0; r < this.graph.grid.length; r++) {
+            for (let q = 0; q < this.graph.grid[r].length; q++) {
+                let point = this.graph.grid[r][q].toPixel();
                 let height = Maths.clamp(Math.floor(noise.in2D(q, r) + gradient[r][q]), 0, 255);
                 this.addChild(new HexGraphic(point, height));
             }

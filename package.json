@@ -5,6 +5,7 @@
   "dependencies": {
     "bootstrap-sass": "^3.3.6",
     "fast-simplex-noise": "^2.1.1",
+    "hashmap": "^2.0.6",
     "jquery": "^2.2.3",
     "noisejs": "^2.1.0",
     "pepjs": "^0.4.1",
