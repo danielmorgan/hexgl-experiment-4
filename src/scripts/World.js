@@ -34,11 +34,18 @@ export default class World extends PIXI.Container {
         for (let r = 0; r < this.graph.grid.length; r++) {
             for (let q = 0; q < this.graph.grid[r].length; q++) {
                 let hex = this.graph.grid[r][q];
+                let point = hex.toPixel();
 
                 // Draw hex
-                let point = hex.toPixel();
                 let height = Maths.clamp(Math.floor(noise.in2D(q, r) + gradient[r][q]), 0, 255);
                 this.addChild(new HexGraphic(point, height));
+
+                // Draw center
+                let g = new PIXI.Graphics();
+                g.beginFill(0xffffff, 0.5);
+                g.drawRect(point.x, point.y, 5, 5);
+                g.endFill();
+                this.addChild(g);
 
                 // Draw corners
                 for (let corner of hex.corners) {
@@ -46,6 +53,15 @@ export default class World extends PIXI.Container {
                     g.beginFill(0xff0000, 0.5);
                     g.drawRect(corner.x, corner.y, 5, 5);
                     g.endFill();
+                    this.addChild(g);
+                }
+
+                // Draw edges
+                for (let edge of hex.edges) {
+                    let g = new PIXI.Graphics();
+                    g.lineStyle(2, 0x00ff00, 0.5);
+                    g.moveTo(edge.v0.x, edge.v0.y);
+                    g.lineTo(edge.v1.x, edge.v1.y);
                     this.addChild(g);
                 }
             }

@@ -2,6 +2,7 @@
 
 import PIXI from 'pixi.js';
 import Corner from './Corner';
+import Edge from './Edge';
 import HexGraphic from '../HexGraphic';
 import game from '../index.js';
 
@@ -108,14 +109,30 @@ export default class Hex {
 
     get corners() {
         let corners = [];
-        let hexGraphic = new HexGraphic();
 
         for (let i = 0; i < 6; i++) {
-            let point = hexGraphic.corner(this.toPixel(), i);
-            corners.push(new Corner(point));
+            corners.push(Hex.corner(this, i));
         }
 
         return corners;
+    }
+
+    static edge(hex, direction) {
+        let hexGraphic = new HexGraphic();
+        let pointA = hexGraphic.corner(hex.toPixel(), direction);
+        let pointB = hexGraphic.corner(hex.toPixel(), direction + 1);
+
+        return new Edge(pointA, pointB);
+    }
+
+    get edges() {
+        let edges = [];
+
+        for (let i = 0; i < 6; i++) {
+            edges.push(Hex.edge(this, i));
+        }
+
+        return edges;
     }
 }
 
