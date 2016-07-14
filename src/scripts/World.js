@@ -40,6 +40,13 @@ export default class World extends PIXI.Container {
             }
         }
 
-        this.cacheAsBitmap = true;
+        /**
+         * @TODO: Split map into chunks and mipmap for scale like gmaps
+         *
+         * Caching as a bitmap can cause it to fail to render if the size is
+         * higher than the GPU's max texture resolution. But it improves the
+         * frame rate.
+         */
+        //this.cacheAsBitmap = true;
     }
 }
