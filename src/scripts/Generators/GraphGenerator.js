@@ -33,6 +33,7 @@ export default class GraphGenerator {
             stage[1].call(this);
         }
 
+        console.log(this);
         return this;
     }
 

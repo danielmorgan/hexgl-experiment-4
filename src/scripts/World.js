@@ -17,7 +17,6 @@ export default class World extends PIXI.Container {
 
         let generator = new GraphGenerator(width, height);
         this.graph = generator.generate();
-        console.log(this.graph);
 
         this.draw();
     }
@@ -34,9 +33,21 @@ export default class World extends PIXI.Container {
 
         for (let r = 0; r < this.graph.grid.length; r++) {
             for (let q = 0; q < this.graph.grid[r].length; q++) {
-                let point = this.graph.grid[r][q].toPixel();
+                let hex = this.graph.grid[r][q];
+
+                // Draw hex
+                let point = hex.toPixel();
                 let height = Maths.clamp(Math.floor(noise.in2D(q, r) + gradient[r][q]), 0, 255);
                 this.addChild(new HexGraphic(point, height));
+
+                // Draw corners
+                for (let corner of hex.corners) {
+                    let g = new PIXI.Graphics();
+                    g.beginFill(0xff0000, 0.5);
+                    g.drawRect(corner.x, corner.y, 5, 5);
+                    g.endFill();
+                    this.addChild(g);
+                }
             }
         }
 
@@ -47,6 +58,6 @@ export default class World extends PIXI.Container {
          * higher than the GPU's max texture resolution. But it improves the
          * frame rate.
          */
-        //this.cacheAsBitmap = true;
+        this.cacheAsBitmap = true;
     }
 }

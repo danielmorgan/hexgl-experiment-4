@@ -1,8 +1,10 @@
 'use strict';
 
-export default class Corner {
+import PIXI from 'pixi.js';
+
+export default class Corner extends PIXI.Point {
     constructor(position) {
-        this.position = position;
+        super(position.x, position.y);
 
         this.touches = []; // Hex
         this.protrudes = []; // Edge

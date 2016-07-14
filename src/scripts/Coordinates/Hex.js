@@ -18,10 +18,6 @@ export default class Hex {
         } else {
             throw new Error('Invalid Hex coordinates', 'Coordinates must equal 0 when summed.');
         }
-
-        this.neighbors = [];
-        this.borders = [];
-        this.corners = [];
     }
 
     toPixel() {
@@ -108,6 +104,18 @@ export default class Hex {
         let point = hexGraphic.corner(hex.toPixel(), direction);
         
         return new Corner(point);
+    }
+
+    get corners() {
+        let corners = [];
+        let hexGraphic = new HexGraphic();
+
+        for (let i = 0; i < 6; i++) {
+            let point = hexGraphic.corner(this.toPixel(), i);
+            corners.push(new Corner(point));
+        }
+
+        return corners;
     }
 }
 
