@@ -51,7 +51,11 @@ export default class Hex {
     }
 
     static add(a, b) {
-        return new Hex(a.q + b.q, a.r + b.r, a.s + b.s);
+        let q = a.q + b.q;
+        let r = a.r + b.r;
+        q += (r % 2 == 0) ? 1 : 0; // Offset
+
+        return new Hex(q, r);
     }
 
     static subtract(a, b) {
