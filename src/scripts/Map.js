@@ -23,7 +23,17 @@ export default class Map extends PIXI.Container {
         this.world.y = this.background.y = game.layout.size.height;
 
         // Add layers
-        this.addChild(this.background);
+        // this.addChild(this.background);
+        let b = new PIXI.Graphics();
+        b.beginFill(0x000000, 1);
+        b.drawPolygon(
+            new PIXI.Point(0, 0),
+            new PIXI.Point(this.horizWidth, 0),
+            new PIXI.Point(this.horizWidth, this.vertHeight),
+            new PIXI.Point(0, this.vertHeight)
+        );
+        b.endFill();
+        this.addChild(b);
         this.addChild(this.world);
 
         // Bounds
@@ -37,7 +47,8 @@ export default class Map extends PIXI.Container {
         };
 
         // Default zoom
-        this.scale.x = this.scale.y = this.minScale();
+        // this.scale.x = this.scale.y = this.minScale();
+        this.scale.x = this.scale.y = 0.5;
 
         // Default position
         this.x = this.bounds().left;

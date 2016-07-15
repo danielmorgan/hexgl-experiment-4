@@ -56,6 +56,17 @@ export default class World extends PIXI.Container {
                     v.lineTo(edge.v1.x, edge.v1.y);
                     this.addChild(v);
                 }
+
+                // Coord text
+                var text = new PIXI.Text(q + ',' + r ,{
+                    font: '24px Arial',
+                    fill: 0xffff00,
+                    align: 'center'
+                });
+                text.anchor = new PIXI.Point(0.5, 0.5);
+                text.x = hex.toPixel().x;
+                text.y = hex.toPixel().y;
+                this.addChild(text);
             }
         }
 
