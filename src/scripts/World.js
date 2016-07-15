@@ -76,7 +76,7 @@ export default class World extends PIXI.Container {
             let hex = this.graph.grid[i+5][i+5 - qOffset];
             let point = hex.toPixel();
 
-            let edge = hex.edges[3];
+            let edge = hex.edges[i];
             let d = new PIXI.Graphics();
             d.lineStyle(5, 0xff00ff, 1);
             d.moveTo(edge.d0.x, edge.d0.y);

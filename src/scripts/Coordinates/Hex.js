@@ -53,7 +53,17 @@ export default class Hex {
     static add(a, b) {
         let q = a.q + b.q;
         let r = a.r + b.r;
-        q += (r % 2 == 0) ? 1 : 0; // Offset
+
+        function isEven(num) { return (num % 2 == 0); }
+
+        if (! isEven(r)) { // Every other row
+            if (b.r < 0) { // Up
+                q += 1;
+            } else {
+                q -= 1;
+            }
+        } else {
+        }
 
         return new Hex(q, r);
     }
