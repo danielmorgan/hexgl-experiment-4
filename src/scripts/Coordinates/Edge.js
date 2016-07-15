@@ -1,13 +1,15 @@
 'use strict';
 
 export default class Edge {
-    constructor(v0 = null, v1 = null) {
-        this.d0 = null; // Hex
-        this.d1 = null; // Hex
+    constructor(v0 = null, v1 = null, d0 = null, d1 = null) {
+        this.d0 = d0; // Hex
+        this.d1 = d1; // Hex
 
         this.v0 = v0; // Corner
         this.v1 = v1; // Corner
+    }
 
-        this.midpoint = null;
+    get midpoint() {
+        return null;
     }
 }

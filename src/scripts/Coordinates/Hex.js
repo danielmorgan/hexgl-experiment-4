@@ -119,10 +119,12 @@ export default class Hex {
 
     static edge(hex, direction) {
         let hexGraphic = new HexGraphic();
-        let pointA = hexGraphic.corner(hex.toPixel(), direction);
-        let pointB = hexGraphic.corner(hex.toPixel(), direction + 1);
+        let v0 = hexGraphic.corner(hex.toPixel(), direction);
+        let v1 = hexGraphic.corner(hex.toPixel(), direction + 1);
+        let d0 = hex.toPixel();
+        let d1 = Hex.neighbour(hex, direction).toPixel();
 
-        return new Edge(pointA, pointB);
+        return new Edge(v0, v1, d0, d1);
     }
 
     get edges() {
